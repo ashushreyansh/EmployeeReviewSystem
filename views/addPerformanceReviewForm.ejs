@@ -1,0 +1,87 @@
+<!-- addPerformanceReviewForm.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Performance Review</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        text-align: center;
+      }
+
+      .container {
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 600px; /* Adjust the maximum width of the container */
+      }
+
+      h2 {
+        color: #007bff;
+      }
+
+      form {
+        text-align: left; /* Align form elements to the left */
+        margin-top: 15px;
+      }
+
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #c85262;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include("./navbar") %>
+
+    <div class="container">
+      <h2>Add Performance Review</h2>
+
+      <!-- Form to add performance review -->
+      <form action="/admin/add-performance-review-form" method="post">
+        <label for="employeeId">Employee:</label>
+        <select name="employeeId" required>
+          <% employeesAndReviewers.forEach(user => { %>
+          <option value="<%= user._id %>"><%= user.username %></option>
+          <% }) %>
+        </select>
+
+        <label for="reviewerId">Reviewer:</label>
+        <select name="reviewerId" required>
+          <% employeesAndReviewers.forEach(user => { %>
+          <option value="<%= user._id %>"><%= user.username %></option>
+          <% }) %>
+        </select>
+
+        <label for="status">Status:</label>
+        <select name="status" required>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+        </select>
+
+        <button type="submit">Add Performance Review</button>
+      </form>
+    </div>
+  </body>
+</html>

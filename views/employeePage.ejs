@@ -1,0 +1,105 @@
+<!-- employeePage.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Review System</title>
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <%- include("./navbar")%>
+
+    <h1>Welcome, <%= user.username %> (Admin)</h1>
+
+    <!-- Display employees in a table -->
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Serial No.</th>
+          <th>Employee ID</th>
+          <th>Employee Name</th>
+          <th>Role</th>
+
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% employees.forEach((employee, index) => { %>
+        <tr id="<%= 'row-' + employee._id %>">
+          <td><%= index + 1 %></td>
+          <td><%= employee._id %></td>
+          <td><%= employee.username %></td>
+          <td><%= employee.role %></td>
+
+          <td>
+            <button onclick="removeEmployee('<%= employee._id %>')">
+              Remove Employee
+            </button>
+            <a href="/admin/update-employee/<%= employee._id %>"
+              ><button>Update Employee</button></a
+            >
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <div class="add-employee-form-container">
+      <button id="openAddEmployeeFormBtn">Add Employee</button>
+      <% if (errorMessage.length > 0) { %>
+      <p class="error-message"><%= errorMessage[0] %></p>
+      <% } %>
+
+      <div id="addEmployeeForm" class="hidden">
+        <form action="/admin/add-employee" method="post">
+          <!-- Add your form fields here (e.g., name, email, etc.) -->
+          <!-- Example: -->
+          <label for="employeeName">Employee Name:</label>
+          <input type="text" id="employeeName" name="employeeName" required />
+
+          <label for="employeeEmail">Employee Email:</label>
+          <input
+            type="email"
+            id="employeeEmail"
+            name="employeeEmail"
+            required
+          />
+          <label for="employeeRole">Employee Role:</label>
+          <select id="employeeRole" name="employeeRole" required>
+            <option value="admin">Admin</option>
+            <option value="employee">Employee</option>
+          </select>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      const openAddEmployeeFormBtn = document.getElementById(
+        "openAddEmployeeFormBtn"
+      );
+      const addEmployeeForm = document.getElementById("addEmployeeForm");
+
+      openAddEmployeeFormBtn.addEventListener("click", () => {
+        addEmployeeForm.style.display = "block";
+      });
+      function removeEmployee(employeeId) {
+        fetch(`/admin/remove-employee/${employeeId}`, {
+          method: "POST",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            if (data.success) {
+              // document.getElementById(`row-${employeeId}`).remove();
+              window.location.href = "/admin/employees";
+            }
+          })
+          .catch((error) => {
+            console.error("Error removing employee:", error);
+            // showNotification("error", "Internal Server Error");
+          });
+      }
+    </script>
+  </body>
+</html>

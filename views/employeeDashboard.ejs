@@ -1,0 +1,82 @@
+<!-- employeeDashboard.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Review System</title>
+    <link rel="icon" href="./images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <style>
+      body {
+        text-align: center;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      #dashboard-container {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: left;
+      }
+
+      #review-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .review-item {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .complete-button {
+        background-color: #c85262;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .complete-button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include("./navbar") %>
+    <h1>Welcome, <%= user.username %>!</h1>
+
+    <div id="dashboard-container">
+      <% if (performanceReviews.length > 0) { %>
+      <h2>Reviews to Complete:</h2>
+      <ul id="review-list">
+        <% performanceReviews.forEach(review => { %>
+        <li class="review-item">
+          <strong>Employee to Review:</strong> <%= review.employee.username
+          %><br />
+          <strong>Status:</strong> <%= review.status %><br />
+
+          <form action="/employee/feedback-form/<%= review._id %>" method="get">
+            <button type="submit" class="complete-button">
+              Complete Review
+            </button>
+          </form>
+        </li>
+        <% }); %>
+      </ul>
+      <% } else { %>
+      <p>No more performance reviews. Enjoy!</p>
+      <% } %>
+    </div>
+
+    <!-- Add more content as needed -->
+  </body>
+</html>

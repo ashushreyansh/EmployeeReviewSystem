@@ -1,0 +1,109 @@
+<!-- adminPerformanceReviews.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Performance Reviews</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        text-align: center; /* Center the content */
+      }
+
+      .containerReview {
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      h2 {
+        color: #007bff;
+      }
+
+      button {
+        background-color: #c85262; /* Updated button color */
+        color: #fff;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 15px;
+      }
+
+      table {
+        width: 80%; /* Adjust the width of the table */
+        margin: 0 auto; /* Center the table */
+        border-collapse: collapse;
+        margin-top: 15px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #007bff;
+        color: #fff;
+      }
+
+      td {
+        color: #333;
+      }
+
+      p {
+        font-style: italic;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include("./navbar") %>
+
+    <div class="containerReview">
+      <h2>Performance Reviews</h2>
+      <button onclick="location.href='/admin/add-performance-review-form'">
+        Add Performance Review
+      </button>
+      <% if (performanceReviews.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Reviewer</th>
+            <th>Feedback</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% performanceReviews.forEach(review => { %>
+          <tr>
+            <td><%= review.employee.username %></td>
+            <td><%= review.reviewer.username %></td>
+            <td><%= review.feedback %></td>
+            <td><%= review.status %></td>
+            <td>
+              <button
+                onclick="location.href='/admin/update-performance-review/<%= review._id %>'"
+              >
+                Update
+              </button>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } else { %>
+      <p>No performance reviews available.</p>
+      <% } %>
+    </div>
+  </body>
+</html>

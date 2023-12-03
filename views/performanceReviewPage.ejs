@@ -1,0 +1,44 @@
+<!-- performanceReviewPage.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Performance Review</title>
+    <!-- Add your custom styles or link to an external stylesheet here -->
+  </head>
+  <body>
+    <%- include("./navbar") %>
+
+    <div style="margin-top: 20px; margin-left: 20px">
+      <h2>Performance Review</h2>
+      <form
+        action="/admin/performance-review/<%= performanceReview._id %>"
+        method="post"
+      >
+        <!-- Performance review details -->
+        <div style="margin-bottom: 15px">
+          <label for="feedback">Feedback:</label>
+          <textarea id="feedback" name="feedback" style="width: 100%" rows="8">
+<%= performanceReview.feedback %></textarea
+          >
+        </div>
+
+        <!-- Add other fields as needed -->
+
+        <button
+          type="submit"
+          style="
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+          "
+        >
+          Update Review
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

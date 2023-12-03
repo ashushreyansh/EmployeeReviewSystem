@@ -1,0 +1,52 @@
+<!-- feedbackForm.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback Form</title>
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+      body {
+        text-align: center;
+      }
+      .form-container {
+        display: flex;
+        justify-content: center;
+      }
+
+      button {
+        background-color: #c85262; /* Button color */
+        color: white; /* Text color */
+        padding: 10px 20px; /* Padding around the text */
+        border: none; /* Remove the default button border */
+        border-radius: 5px; /* Add a slight border-radius */
+        cursor: pointer; /* Change cursor on hover */
+      }
+
+      /* Hover effect for the button */
+      button:hover {
+        background-color: #45a049; /* New color on hover */
+      }
+    </style>
+  </head>
+  <body>
+    <%- include("./navbar") %>
+    <h1>Feedback Form for <%= review.employee.username %></h1>
+    <div class="form-container">
+      <!-- You can add the feedback form fields here -->
+
+      <!-- Example: -->
+      <form action="/submit-feedback/<%= review._id %>" method="post">
+        <label for="feedback">Feedback:</label>
+        <textarea id="feedback" name="feedback" rows="8" cols="100"></textarea>
+        <br />
+        <button type="submit">Submit Feedback</button>
+      </form>
+    </div>
+
+    <!-- Add more content as needed -->
+  </body>
+</html>

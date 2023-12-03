@@ -1,0 +1,25 @@
+<nav class="navbar">
+  <div class="logoContainer">
+    <div class="logo"></div>
+  </div>
+  <div class="navMenu">
+    <ul class="menuList">
+      <% if (!authenticated) { %>
+      <li>
+        <a href="/login">
+          <button>Login</button>
+        </a>
+      </li>
+      <% } else { %>
+      <li id="logoutBtn">
+        <a href="/logout">
+          <button>Logout</button>
+        </a>
+      </li>
+      <li>
+        <span>Hi, <%= user.username %></span>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+</nav>
