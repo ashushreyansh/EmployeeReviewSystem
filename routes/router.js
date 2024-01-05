@@ -10,7 +10,6 @@ const employeeRoutes = require("./employeeRoutes");
 
 Router.use(
   session({
-    store: new FileStore(),
     secret: "your-secret-key",
     resave: false,
     saveUninitialized: true,
